@@ -20,10 +20,12 @@ rec {
     dark = spacelix-base // {black = background;};
   };
 
-  spacelix-slate  = genSpacelix "#1b253a";
-  spacelix-dark   = genSpacelix "#111111";
-  spacelix-black  = genSpacelix "#000000";
-  spacelix-ocean  = genSpacelix "#012456";
-  spacelix-sea    = genSpacelix "#073642";
-  spacelix-deep   = genSpacelix "#001133";
+  slate  = genSpacelix "#1b253a";
+  dark   = genSpacelix "#111111";
+  black  = genSpacelix "#000000";
+  ocean  = genSpacelix "#012456";
+  sea    = genSpacelix "#073642";
+  deep   = genSpacelix "#001133";
+  night  = genSpacelix "#000a1f";
+  abyss  = genSpacelix "#000612";
 }
