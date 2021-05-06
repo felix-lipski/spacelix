@@ -7,6 +7,8 @@ rec {
   
   # sum [1 2 3] -> 6
   sum = lib.lists.foldr (a: b: a + b) 0;
+  
+  concatLines = lib.lists.foldr (a: b: a + "\n" + b) "";
 
   # floatToInt 3.14 -> 3
   floatToInt = x: lib.strings.toInt (builtins.elemAt (builtins.split "[.]" (builtins.toString x)) 0);

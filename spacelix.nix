@@ -28,4 +28,6 @@ rec {
   deep   = genSpacelix "#001133";
   night  = genSpacelix "#000a1f";
   abyss  = genSpacelix "#000612";
+
+  names = [ "slate" "dark" "black" "ocean" "sea" "deep" "night" "abyss" ];
 }

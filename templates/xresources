@@ -1,0 +1,19 @@
+*background: #black
+*foreground: #white
+*color0:     #black
+*color8:     #grey
+*color1:     #red
+*color9:     #red
+*color2:     #green
+*color10:    #green
+*color3:     #yellow
+*color11:    #yellow
+*color4:     #blue
+*color12:    #blue
+*color5:     #magenta
+*color13:    #magenta
+*color6:     #cyan
+*color14:    #cyan
+*color7:     #white
+*color15:    #white
+
