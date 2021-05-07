@@ -3,37 +3,29 @@ let
   lib           = nixpkgs.lib;
   utils         = (import ./utils.nix) {inherit lib;};
   spacelix      = (import ./spacelix.nix) {inherit lib;};
+  withGray      = shades: shades.dark // {grey = shades.light.black;};
   
   xresTempStr   = builtins.readFile ./templates/xresources;
-  xresTempPath  = builtins.toFile "xresources" xresTempStr;
   pywalTempStr  = builtins.readFile ./templates/pywal;
-  pywalTempPath = builtins.toFile "pywal" pywalTempStr;
-
-  withGray      = shades: shades.dark // {grey = shades.light.black;};
-  palPath       = tempStr: palette: builtins.toFile "foo" 
-    (utils.interpolateColors (withGray palette) tempStr);
-  xresPalPath   = palette: builtins.toFile "foo" 
-    (utils.interpolateColors (withGray palette) xresTempStr);
 in
 pkgs.pkgs.stdenv.mkDerivation rec {
   pname       = "spacelix";
-  version     = "0.0.1";
+  version     = "0.0.2";
   dontUnpack  = true;
+
   buildPhase  = 
   let
-    genXres = utils.concatLines
-    (map (x: "cat ${palPath xresTempStr spacelix."${x}"} > spacelix-${x}-xresources") spacelix.names);
-    genPywal = utils.concatLines
-    (map (x: "cat ${palPath pywalTempStr spacelix."${x}"} > spacelix-${x}-pywal.json") spacelix.names);
+    palPath = tempStr: palette: builtins.toFile "foo" 
+      (utils.interpolateColors (withGray palette) tempStr);
+    gen = tempStr: extStr: utils.concatLines
+      (map (palName: "cat ${palPath tempStr spacelix."${palName}"} > spacelix-${palName}-${extStr}") spacelix.names);
   in
-  genXres + genPywal;
+  (gen xresTempStr "xresources") + (gen pywalTempStr "pywal.json");
 
   installPhase = 
   let
-    exportXres = "mkdir -p $out/xresources\n" + (utils.concatLines
-    (map (x: "mv spacelix-${x}-xresources $out/xresources") spacelix.names));
-    exportPywal = "mkdir -p $out/pywal\n" + (utils.concatLines
-    (map (x: "mv spacelix-${x}-pywal.json $out/pywal") spacelix.names));
+    export = name: extStr: "mkdir -p $out/${name}\n" + (utils.concatLines
+    (map (palName: "mv spacelix-${palName}-${extStr} $out/${name}") spacelix.names));
   in
-  exportXres + exportPywal;
+  (export "xresources" "xresources") + (export "pywal" "pywal.json");
 }
