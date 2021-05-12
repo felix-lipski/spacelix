@@ -12,12 +12,10 @@ rec {
     white   = "#ffffff"; 
   };
 
-# spacelix-base-dark = builtins.mapAttrs (name: value: utils.darkenHex 0.1 value) spacelix-base;
-# spacelix-base-light = builtins.mapAttrs (name: value: utils.lightenHex 0.5 value) spacelix-base;
-
-  genSpacelix = background: {
+  genSpacelix = background: rec {
     light = spacelix-base // {black = utils.lightenHex 0.4 background;};
     dark = spacelix-base // {black = background;};
+    withGrey = dark // {grey = light.black;};
   };
 
   slate  = genSpacelix "#1b253a";
