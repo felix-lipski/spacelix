@@ -9,7 +9,7 @@ rec {
     blue    = "#0066ff"; 
     magenta = "#ff0055"; 
     cyan    = "#00aa77"; 
-    white   = "#ffffff"; 
+    white   = "#cccccc"; 
   };
 
   genSpacelix = background: rec {
