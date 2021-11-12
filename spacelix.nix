@@ -19,7 +19,7 @@ rec {
   };
 
   slate  = genSpacelix "#1b253a";
-  dark   = genSpacelix "#111111";
+  dark   = genSpacelix "#121212";
   black  = genSpacelix "#000000";
   ocean  = genSpacelix "#012456";
   sea    = genSpacelix "#073642";
